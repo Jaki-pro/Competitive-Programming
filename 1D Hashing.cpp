@@ -9,7 +9,7 @@ int p = 397; // Random prime number
 void solve(int tc)
 {
     ll n, m, k, a, b, cnt=0, mx=0, mn = INT_MAX, sum=0;
-    string s="ac"; n = s.size();
+    string s="adsfggdfc"; n = s.size();
     Hash1[0] = s[0]-'a'+1;
     BP[0] = 1;
     for(int i=1; i<s.size(); i++) // Making Hashing
