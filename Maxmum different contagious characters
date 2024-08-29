@@ -1,0 +1,35 @@
+// Given a string. Rorder the string in such way that the maximum characters are different in reordered string
+void solve(int tc)
+{
+    ll n, m, k, a, b, cnt=0, mx=0, mn = INT_MAX, sum=0;
+    cin>>n;
+    string s, ss="";
+    cin>>s;
+    vector<string> v;
+    map<char, ll> mp;
+    string d;
+    char dd;
+    for(auto c:s) mp[c]++;
+    for(auto c:mp)
+    {
+        if(c.S>mx)
+        {
+            d=c.F;
+            dd=c.F;
+            mx=c.S;
+        }
+    }
+    for(ll i=0; i<mx; i++) v.push_back(d);
+    ll in=0;
+    for(auto c:mp)
+    {
+        for(ll i=0; i<c.S && c.F!=dd; i++){
+            v[in]+=c.F;
+            mp[c.F]--;
+            in++;
+            if(in==mx) in=0;
+        }
+    }
+
+    for(auto c:v) cout<<c;el;
+}
