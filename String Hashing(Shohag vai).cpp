@@ -2,6 +2,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
+#define F  first
+#define S  second
 string s;
 const int N = 1e6 + 3;
 // BigMod
@@ -24,15 +26,15 @@ pair<ll, ll> pw[N], inpw[N];
 void prec() {
   pw[0] =  {1, 1};
   for (int i = 1; i < N; i++) {
-    pw[i].first = 1LL * pw[i - 1].first * p1 % MOD1;
-    pw[i].second = 1LL * pw[i - 1].second * p2 % MOD2;
+    pw[i].F = 1LL * pw[i - 1].F * p1 % MOD1;
+    pw[i].S = 1LL * pw[i - 1].S * p2 % MOD2;
   }
   ip1 = power(p1, MOD1 - 2, MOD1);
   ip2 = power(p2, MOD2 - 2, MOD2);
   inpw[0] =  {1, 1};
   for (int i = 1; i < N; i++) {
-    inpw[i].first = 1LL * inpw[i - 1].first * ip1 % MOD1;
-    inpw[i].second = 1LL * inpw[i - 1].second * ip2 % MOD2;
+    inpw[i].F = 1LL * inpw[i - 1].F * ip1 % MOD1;
+    inpw[i].S = 1LL * inpw[i - 1].S * ip2 % MOD2;
   }
 }
 // Calculating Hash value
@@ -47,16 +49,16 @@ struct Hashing {
     hs.emplace_back(0, 0);
     for (int i = 0; i < n; i++) {
       pair<int, int> p;
-      p.first = (hs[i].first + 1LL * pw[i].first * s[i] % MOD1) % MOD1;
-      p.second = (hs[i].second + 1LL * pw[i].second * s[i] % MOD2) % MOD2;
+      p.F = (hs[i].F + 1LL * pw[i].F * s[i] % MOD1) % MOD1;
+      p.S = (hs[i].S + 1LL * pw[i].S * s[i] % MOD2) % MOD2;
       hs.push_back(p);
     }
   }
   pair<int, int> get_hash(int l, int r) { // 1 - indexed
     assert(1 <= l && l <= r && r <= n);
     pair<int, int> ans;
-    ans.first = (hs[r].first - hs[l - 1].first + MOD1) * 1LL * inpw[l - 1].first % MOD1;
-    ans.second = (hs[r].second - hs[l - 1].second + MOD2) * 1LL * inpw[l - 1].second % MOD2;
+    ans.F = (hs[r].F - hs[l - 1].F + MOD1) * 1LL * inpw[l - 1].F % MOD1;
+    ans.S = (hs[r].S - hs[l - 1].S + MOD2) * 1LL * inpw[l - 1].S % MOD2;
     return ans;
   }
 
@@ -64,11 +66,19 @@ struct Hashing {
     return get_hash(1, n);
   }
 };
+pair<int, int> merg(pair<int, int> x, pair<int, int> y, int z) // z- length of x
+{
+    pair<int, int> ans;
+    ans.F = (x.F+ (1LL*pw[z].F*y.F)%MOD1)%MOD1;
+    ans.S = (x.S+ (1LL*pw[z].S*y.S)%MOD2)%MOD2;
+    return ans;
+}
 int main(){
     prec();
     cin>>s;
     Hashing hash1(s);
-    cout<<hash1.get_hash(1, 4).first<<endl;
-
+    cout<<hash1.get_hash(1, 4).F<<' '<<hash1.get_hash(1,4).S<<endl;
+    auto m = merg(hash1.get_hash(1, 2), hash1.get_hash(9, 10), 2);
+    cout<<m.F<<' '<<m.S<<endl;
 }
 // ababcdefab
