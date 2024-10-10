@@ -1,0 +1,13 @@
+bool isOn(int x, int i) {
+    return x&(1LL<<i);
+}
+int setBit(int x, int i) {
+    return x|(1LL<<i);
+}
+int flip(int x, int i) {
+    return x^(1LL<<i);
+}
+int offBit(int x, int i) {
+    if(isOn(x, i)) return flip(x, i);
+    return x;
+}
