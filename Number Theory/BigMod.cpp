@@ -7,3 +7,4 @@ int power(long long base, long long k, const int mod) {
     base = (long long) base * base % mod;
     k >>= 1;
   }
+}
