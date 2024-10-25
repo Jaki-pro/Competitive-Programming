@@ -4,5 +4,5 @@ ll power(ll base, ll po){
         if(po&1) res = (res*base)%mod, po--;
         else base = (base*base)%mod, po/=2;
     }
-    return res;
+    return res%mod;
 }
