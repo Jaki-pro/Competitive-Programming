@@ -1,0 +1,92 @@
+/**
+        Hasbunallahu wa ni'mal-Wakil, ni'mal mawla wa ni'man-nasir
+        -ALLAH is enough for us, preferably a protector and preferably our helper.
+**/
+#include<bits/stdc++.h> 
+using namespace std; 
+#define FIO            ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+#define ll              long long int
+#define nl              "\n"
+#define el              cout<<endl
+#define pb(a)           push_back(a)
+#define vll             vector<ll>
+#define sortv(v)        sort(v.begin(), v.end())
+#define rvsv(v)         reverse(v.begin(), v.end())
+#define mxv(v)          *max_element(v.begin(), v.end());
+#define mnv(v)          *min_element(v.begin(), v.end());
+#define mod             1000000007
+#define spc             " "
+#define yes             cout<<"YES"<<endl
+#define no              cout<<"NO"<<endl
+#define F               first
+#define S               second
+#define line            cout<<"<"<<__LINE__<<" Passed>"<<endl;
+#define coutv(v)        for(auto it:v){cout<<it<<' ';}cout<<endl;
+#define cinv(v)         for(auto &it:v)cin>>it;
+#define it(x)           x<ll>:: iterator it;
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+ll my_rand(ll l, ll r)
+{
+    return uniform_int_distribution<ll>(l, r) (rng);
+}
+const ll N = 3e3;
+ll dp[N+2][N+2];
+ll n, nn;
+ll cnt=0;
+string s, ss;
+ll inf = 1e12;
+ll nxt[N+2][N+2];
+vector<ll> v[N+2];
+ll f(ll l, ll r) { 
+    if(l>r) return 0; 
+    auto &an = dp[l][r];
+    if(~an) return an;
+    an=0;
+    ll temp;
+    if(s[l]==s[r]){
+        temp = max(an, 2-(l==r)+f(l+1, r-1));
+        if(temp>an) nxt[l][r]=1, an=temp;
+    }
+    temp = f(l, r-1);
+    if(temp>an) nxt[l][r]=3, an=temp; 
+
+    temp = f(l+1, r);
+    if(temp>an) nxt[l][r]=2, an=temp; 
+    return an;
+    
+} 
+void solve(int tc)
+{
+    ll  m, cap, k, a, b,  mx=0, mn = INT_MAX, sum=0;
+    cin>>s;
+    n=s.size();
+    for(ll i=0; i<=n; i++) {
+        for(ll j=0; j<=n; j++) dp[i][j]=-1;
+    }
+    
+    a= f(0, n-1);
+    string ss="";
+    ll x=0, y=n-1;
+    while(x<n && y>=0) {
+        if(nxt[x][y]==1){
+            ss+=s[x];
+            x++, y--;
+        }
+        else if(nxt[x][y]==2) x++;
+        else y--;
+    }
+    cout<<a<<nl;
+    cout<<ss;   
+    rvsv(ss);
+    if(a%2) ss.erase(ss.begin());
+    cout<<ss<<nl;
+}
+
+int main()
+{
+    FIO
+    int t=1;
+    // cin>>t;
+    for(int i=1; i<=t; i++) solve(i);
+    return 0;
+}
