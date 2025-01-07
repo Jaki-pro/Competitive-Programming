@@ -44,7 +44,7 @@ ll f(ll l, ll r) {
     an=0;
     ll temp;
     if(s[l]==s[r]){
-        temp = max(an, 2-(l==r)+f(l+1, r-1));
+        temp = 2-(l==r)+f(l+1, r-1);
         if(temp>an) nxt[l][r]=1, an=temp;
     }
     temp = f(l, r-1);
@@ -76,9 +76,9 @@ void solve(int tc)
         else y--;
     }
     cout<<a<<nl;
-    cout<<ss;   
-    rvsv(ss);
-    if(a%2) ss.erase(ss.begin());
+    cout<<ss;  // acf
+    rvsv(ss); // fca
+    if(a%2) ss.erase(ss.begin()); // ca
     cout<<ss<<nl;
 }
 
@@ -90,3 +90,4 @@ int main()
     for(int i=1; i<=t; i++) solve(i);
     return 0;
 }
+// abqcfcab
