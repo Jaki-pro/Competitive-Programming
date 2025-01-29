@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/linked-list-cycle/description/
 bool hasCycle(ListNode* head) {
         ListNode* A = head;
         if(A==NULL) return false;
